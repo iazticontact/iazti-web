@@ -1,0 +1,8 @@
+{
+  "name": "IAzti - Tecnología Inteligente y Diseño Web",
+  "description": "Sitio web oficial de IAzti, expertos en diseño web profesional, tiendas online y automatizaciones inteligentes con un enfoque futurista y práctico.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ]
+}
