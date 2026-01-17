@@ -1,13 +1,15 @@
-
 {
   "name": "iazti-web",
   "private": true,
   "version": "1.0.0",
   "type": "module",
+  "engines": {
+    "node": "20.x"
+  },
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview",
+    "preview": "vite preview --host 0.0.0.0 --port 3000",
     "start": "node server.js"
   },
   "dependencies": {
@@ -19,6 +21,7 @@
     "react-router-dom": "^7.12.0"
   },
   "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.0",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
     "autoprefixer": "^10.4.19",
@@ -28,3 +31,4 @@
     "vite": "^6.0.0"
   }
 }
+
