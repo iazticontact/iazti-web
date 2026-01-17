@@ -1,12 +1,13 @@
 import React from "react";
 
-export const Admin = () => {
+export default function Admin() {
   return (
     <main className="min-h-screen bg-black text-white">
       <div className="mx-auto max-w-4xl px-6 py-16">
         <h1 className="text-3xl font-semibold tracking-tight">
           Panel de administración
         </h1>
+
         <p className="mt-4 text-white/70">
           Sección preparada para gestión interna (IAzti). Próximamente: leads,
           emails y automatizaciones.
@@ -20,6 +21,8 @@ export const Admin = () => {
       </div>
     </main>
   );
-};
+}
 
-export default Admin;
+// Esto crea el export NOMBRADO también (por si algún import usa { Admin })
+export { Admin };
+
