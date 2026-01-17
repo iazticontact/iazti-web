@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { HashRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { Navbar } from './components/Navbar';
@@ -10,7 +9,7 @@ import { Services } from './pages/Services';
 import { Process } from './pages/Process';
 import { Projects } from './pages/Projects';
 import { Contact } from './pages/Contact';
-import { Admin } from './pages/Admin';
+import Admin from './pages/Admin';
 import { Privacy } from './pages/Privacy';
 import { Cookies } from './pages/Cookies';
 import { translations } from './translations';
