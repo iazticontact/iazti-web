@@ -1,5 +1,6 @@
 import express from "express";
 import path from "path";
+import fs from "fs";
 import { fileURLToPath } from "url";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -8,15 +9,37 @@ const __dirname = path.dirname(__filename);
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Sirve el build de Vite (dist)
-const distPath = path.join(__dirname, "dist");
-app.use(express.static(distPath));
+// Detectar dist aunque Hostinger cambie el cwd
+const candidates = [
+  path.join(__dirname, "dist"),
+  path.join(process.cwd(), "dist"),
+  path.join(__dirname, "..", "dist"),
+  path.join(process.cwd(), "..", "dist"),
+];
 
-// SPA fallback
-app.get("*", (req, res) => {
-  res.sendFile(path.join(distPath, "index.html"));
-});
+const distPath = candidates.find((p) => fs.existsSync(path.join(p, "index.html")));
 
-app.listen(PORT, () => console.log("Running on", PORT));
+if (!distPath) {
+  // Página de debug si dist no existe (así sabemos el problema exacto)
+  app.get("*", (req, res) => {
+    res.status(500).send(
+      `<h1>ERROR: dist no encontrado</h1>
+       <p>El build no se ha generado o no está en la ruta esperada.</p>
+       <pre>${candidates.join("\n")}</pre>`
+    );
+  });
+
+  app.listen(PORT, () => console.log("IAzti (DEBUG) on", PORT));
+} else {
+  app.use(express.static(distPath));
+
+  // SPA fallback
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(distPath, "index.html"));
+  });
+
+  app.listen(PORT, () => console.log("IAzti running on", PORT, "dist:", distPath));
+}
+
 
 
