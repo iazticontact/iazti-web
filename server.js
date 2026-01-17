@@ -8,24 +8,15 @@ const __dirname = path.dirname(__filename);
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// 1) Servir el build de Vite
+// Sirve el build de Vite (dist)
 const distPath = path.join(__dirname, "dist");
-app.use(express.static(distPath, {
-  maxAge: "1y",
-  setHeaders(res, filePath) {
-    // HTML sin cache para que los cambios se vean rápido
-    if (filePath.endsWith(".html")) {
-      res.setHeader("Cache-Control", "no-cache");
-    }
-  },
-}));
+app.use(express.static(distPath));
 
-// 2) Fallback SPA: siempre devolver dist/index.html
+// SPA fallback
 app.get("*", (req, res) => {
   res.sendFile(path.join(distPath, "index.html"));
 });
 
-app.listen(PORT, () => {
-  console.log(`IAzti running on port ${PORT}`);
-});
+app.listen(PORT, () => console.log("Running on", PORT));
+
 
